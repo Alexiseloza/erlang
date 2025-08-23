@@ -1,0 +1,31 @@
+# Erlang build artifacts
+ebin/
+*.beam
+
+# Common IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# MacOS system files
+.DS_Store
+
+# Logs
+*.log
+
+# Node/Erlang dependencies (if present)
+node_modules/
+deps/
+rebar.lock
+rebar3.crashdump
+
+# Test output
+test/*.beam
+test/*.log
+
+# Backup files
+*~
+*.bak
+
+#
