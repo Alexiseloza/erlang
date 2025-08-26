@@ -5,29 +5,47 @@
 %%% @end
 %%% Created : 25 Aug 2025 by Alexis Loza <Author_Email>
 -module(calc).
--export([add/2, sub/2, mult/2, div/2]).
+-export([calculator/0]).
 
 calculator() ->
     io:format("Select operation: +, -, *, / or 'q' to quit~n"),
-    Operation = string:trim(io:get_line("->")),
-    case Operation of
+    Choice = string:trim(io:get_line("->")),
+    case Choice of
         "q" ->
-            io:format("Exiting calculator. Goodbye!~n");
+            io:format("Exiting calculator. Bye!~n");
         _ ->
-            Num1Str = string:trim(io:get_line("Enter first number: ")),
-            Num2Str = string:trim(io:get_line("Enter second number: ")),
-            {ok, Num1} = string:to_integer(Num1Str),
-            {ok, Num2} = string:to_integer(Num2Str),
-            Result = 
-                case Operation of
-                    "+" -> add(Num1, Num2);
-                    "-" -> sub(Num1, Num2);
-                    "*" -> mult(Num1, Num2);
-                    "/" -> div(Num1, Num2);
-                    _ -> 
-                        io:format("Invalid operation!~n"),
-                        calculator()
-                end,
-            io:format("Result: ~p ~n", [Result]),
-            calculator()
+          math_operation(Choice)
+    end.
+
+math_operation(Op) -> 
+    io:format("Enter first number: ~n"),
+    Num1String = string:trim(io:get_line("->")),
+    Num1 =list_to_integer(Num1String),
+    io:format("Enter second number: ~n"),
+    Num2String = string:trim(io:get_line("->")),
+    Num2 =list_to_integer(Num2String),
+
+    case Op of
+        "+" ->
+            Result = Num1 + Num2,
+            io:format("Result: ~p + ~p = ~p~n", [Num1, Num2, Result]),
+            calculator();
+        "-" ->
+            Result = Num1 - Num2,
+            io:format("Result: ~p - ~p = ~p~n", [Num1, Num2, Result]),
+            calculator();
+        "*" ->
+            Result = Num1 * Num2,
+            io:format("Result: ~p * ~p = ~p~n", [Num1, Num2, Result]),
+            calculator();
+        "/" ->
+            case Num2 of
+                0 ->
+                    io:format("Error: Division by zero is not allowed.~n"),
+                    calculator();
+                _ ->
+                    Result = Num1 / Num2,
+                    io:format("Result: ~p / ~p = ~p~n", [Num1, Num2, Result]),
+                    calculator()
+            end
     end.
